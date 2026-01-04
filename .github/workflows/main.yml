@@ -1,0 +1,13 @@
+name: Tes GitHub Actions Mac
+
+on:
+  workflow_dispatch:
+
+jobs:
+  tes:
+    runs-on: macos-latest
+    steps:
+      - name: Cek macOS & Xcode
+        run: |
+          sw_vers
+          xcodebuild -version
