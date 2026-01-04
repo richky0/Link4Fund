@@ -1,10 +1,10 @@
-name: Build iOS IPA
+name: Build iOS IPA (Unsigned)
 
 on:
   workflow_dispatch:
 
 jobs:
-  build_ios:
+  build_ios_unsigned:
     runs-on: macos-latest
 
     steps:
@@ -21,8 +21,13 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
 
-    # 4. Build iOS
-    - name: Build iOS
-      run: |
-        cd ios
-        flutter build ipa --release --no-codesign
+    # 4. Build iOS unsigned IPA
+    - name: Build iOS IPA (unsigned)
+      run: flutter build ipa --release --no-codesign
+
+    # 5. Upload IPA supaya bisa di-download
+    - name: Upload IPA
+      uses: actions/upload-artifact@v4
+      with:
+        name: unsigned-ios-ipa
+        path: build/ios/ipa/*.ipa
