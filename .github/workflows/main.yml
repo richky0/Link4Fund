@@ -1,13 +1,15 @@
-name: Tes GitHub Actions Mac
+name: Cek Project iOS
 
 on:
   workflow_dispatch:
 
 jobs:
-  tes:
+  cek:
     runs-on: macos-latest
     steps:
-      - name: Cek macOS & Xcode
+      - uses: actions/checkout@v4
+
+      - name: Lihat isi repo
         run: |
-          sw_vers
-          xcodebuild -version
+          ls
+          ls ios || echo "folder ios TIDAK ada"
