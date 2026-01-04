@@ -33,7 +33,7 @@ A modern and beautiful Flutter application for managing your favorite links with
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/RichkySung/link4fun.git
+   git clone https://github.com/richky0/Link4Fund.git
    cd link4fun
    ```
 
