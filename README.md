@@ -19,7 +19,6 @@ A modern and beautiful Flutter application for managing your favorite links with
 - ➕ **Add new links** - Customize with titles, URLs, and icons
 - ✏️ **Edit existing links** - Update your links anytime
 - 🗑️ **Delete links** - Remove unwanted links with swipe gesture
-- 🎨 **Beautiful UI** - Modern Material Design 3 with dark/light theme
 - 💾 **Local storage** - Links saved locally with SharedPreferences
 - 🔄 **Cross-platform** - Works on Android, iOS, and Web
 
