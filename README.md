@@ -12,14 +12,6 @@ A modern and beautiful Flutter application for managing your favorite links with
 
 </div>
 
-## 📸 Screenshots
-
-<div align="center">
-  <img src="https://via.placeholder.com/300x600/2196F3/FFFFFF?text=Home+Screen" alt="Home Screen" width="200"/>
-  <img src="https://via.placeholder.com/300x600/4CAF50/FFFFFF?text=Add+Link" alt="Add Link" width="200"/>
-  <img src="https://via.placeholder.com/300x600/FF9800/FFFFFF?text=Link+Options" alt="Link Options" width="200"/>
-</div>
-
 ## ✨ Features
 
 - 🔗 **One-tap link opening** - Open your favorite websites instantly
