@@ -9,7 +9,7 @@
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 ![Version](https://img.shields.io/badge/Version-2.0.0-orange)
 
-** Hello **
+**Hello**
 
 </div>
 
