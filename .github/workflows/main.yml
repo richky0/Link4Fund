@@ -1,0 +1,15 @@
+name: Cek Project iOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cek:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lihat isi repo
+        run: |
+          ls
+          ls ios || echo "folder ios TIDAK ada"
