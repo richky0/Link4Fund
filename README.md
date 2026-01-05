@@ -432,7 +432,7 @@ If you find this project useful, please:
 
 ### **Download Now & Organize Your Links Smarter!** 🚀
 
-[![Download APK](https://img.shields.io/badge/Download-APK-brightgreen?style=for-the-badge&logo=android)](https://github.com/richky0/Link4Fun/releases)
+[![Download APK](https://img.shields.io/badge/Download-APK-brightgreen?style=for-the-badge&logo=android)](https://github.com/richky0/Link4Fun/Releases)
 [![Try Web Version](https://img.shields.io/badge/Try-Web_Version-blue?style=for-the-badge&logo=google-chrome)](https://richky0.github.io/Link4Fun)
 
 **"Your links, organized beautifully. One tap away."**
