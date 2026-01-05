@@ -13,7 +13,7 @@
 
 </div>
 
-## ✨ **New Features in v2.0.0**
+## ✨ **v1.0.0**
 
 ### 🔍 **Smart Search with Highlighting**
 - Real-time search with text highlighting
