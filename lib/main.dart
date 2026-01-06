@@ -290,14 +290,22 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     _searchFocusNode.unfocus();
   }
 
-  // Fungsi untuk membuat text dengan highlight
-  Widget _buildHighlightedText(String text, String query) {
+  // Fungsi untuk membuat text dengan highlight - PERBAIKAN KONSISTENSI WARNA
+  Widget _buildHighlightedText(String text, String query, BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textColor = isDark ? Colors.white.withOpacity(0.87) : Colors.black87;
+    final highlightColor = Theme.of(context).colorScheme.primary;
+    final highlightBgColor = isDark
+        ? highlightColor.withOpacity(0.3)
+        : highlightColor.withOpacity(0.1);
+
     if (query.isEmpty) {
       return Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 17,
+          color: textColor,
         ),
       );
     }
@@ -308,9 +316,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     if (!lowerText.contains(lowerQuery)) {
       return Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 17,
+          color: textColor,
         ),
       );
     }
@@ -324,10 +333,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       if (end > start) {
         matches.add(TextSpan(
           text: text.substring(start, end),
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 17,
-            color: Colors.black87,
+            color: textColor,
           ),
         ));
       }
@@ -335,11 +344,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       // Tambahkan teks yang match dengan highlight
       matches.add(TextSpan(
         text: text.substring(end, end + query.length),
-        style: const TextStyle(
+        style: TextStyle(
           fontWeight: FontWeight.w700,
           fontSize: 17,
-          color: Colors.blue,
-          backgroundColor: Color(0xFFE3F2FD),
+          color: highlightColor,
+          backgroundColor: highlightBgColor,
         ),
       ));
 
@@ -350,10 +359,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     if (start < text.length) {
       matches.add(TextSpan(
         text: text.substring(start),
-        style: const TextStyle(
+        style: TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 17,
-          color: Colors.black87,
+          color: textColor,
         ),
       ));
     }
@@ -448,20 +457,26 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       SnackBar(
         content: Row(
           children: [
-            const Icon(Icons.check_circle, color: Colors.white),
+            Icon(Icons.check_circle, color: Theme.of(context).colorScheme.onPrimary),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
+                  Text(
                     'Link Copied!',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
                   ),
                   Text(
                     copiedText,
-                    style: const TextStyle(fontSize: 12),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.9),
+                    ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
@@ -470,7 +485,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             ),
           ],
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         duration: const Duration(seconds: 3),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
@@ -505,8 +520,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void _showSuccess(String message, {bool isError = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
-        backgroundColor: isError ? Colors.red : Colors.green,
+        content: Text(
+          message,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onErrorContainer,
+          ),
+        ),
+        backgroundColor: isError
+            ? Theme.of(context).colorScheme.error
+            : Theme.of(context).colorScheme.primary,
         duration: const Duration(seconds: 2),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
@@ -521,12 +543,19 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       SnackBar(
         content: Row(
           children: [
-            const Icon(Icons.error_outline, color: Colors.white),
+            Icon(Icons.error_outline, color: Theme.of(context).colorScheme.onError),
             const SizedBox(width: 8),
-            Expanded(child: Text(message)),
+            Expanded(
+              child: Text(
+                message,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onError,
+                ),
+              ),
+            ),
           ],
         ),
-        backgroundColor: Colors.red,
+        backgroundColor: Theme.of(context).colorScheme.error,
         duration: const Duration(seconds: 3),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
@@ -546,6 +575,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
+          backgroundColor: Theme.of(context).colorScheme.surface,
           child: Container(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -570,7 +600,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       ],
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, size: 24),
+                      icon: Icon(
+                        Icons.close,
+                        size: 24,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       onPressed: () => Navigator.pop(context),
                     ),
                   ],
@@ -632,7 +666,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       const SizedBox(height: 5),
                       SelectableText(
                         link.url,
-                        style: const TextStyle(fontSize: 14, color: Colors.grey),
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                        ),
                       ),
                     ],
                   ),
@@ -650,10 +687,22 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           Navigator.pop(context);
                           _copyToClipboard(link.url);
                         },
-                        icon: const Icon(Icons.copy, size: 18),
-                        label: const Text('Copy URL'),
+                        icon: Icon(
+                          Icons.copy,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        label: Text(
+                          'Copy URL',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                        ),
                         style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 12),
+                          side: BorderSide(
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
                         ),
                       ),
                     ),
@@ -686,27 +735,51 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Add New Link'),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          'Add New Link',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               controller: _titleController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Title',
                 hintText: 'Enter link title',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
+                labelStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                hintStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                ),
+              ),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
               ),
               autofocus: true,
             ),
             const SizedBox(height: 16),
             TextField(
               controller: _urlController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'URL',
                 hintText: 'example.com',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 prefixText: 'https://',
+                labelStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                hintStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                ),
+              ),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
               ),
               keyboardType: TextInputType.url,
             ),
@@ -715,7 +788,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(
+              'Cancel',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
           ),
           ElevatedButton(
             onPressed: () {
@@ -733,6 +811,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -749,7 +828,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 height: 4,
                 width: 40,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
+                  color: Theme.of(context).colorScheme.outline.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -766,9 +845,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 ),
                 title: Text(
                   'Generate QR Code',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: link.color),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: link.color,
+                  ),
                 ),
-                subtitle: const Text('Create QR code for this link'),
+                subtitle: Text(
+                  'Create QR code for this link',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                  ),
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   _showQRCodeDialog(link);
@@ -779,14 +866,20 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.2),
+                    color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.open_in_new, color: Colors.blue),
+                  child: Icon(
+                    Icons.open_in_new,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
-                title: const Text(
+                title: Text(
                   'Open Link',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -803,9 +896,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ),
                   child: const Icon(Icons.copy, color: Colors.green),
                 ),
-                title: const Text(
+                title: Text(
                   'Copy URL',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -822,9 +918,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ),
                   child: const Icon(Icons.edit, color: Colors.orange),
                 ),
-                title: const Text(
+                title: Text(
                   'Edit Link',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -841,9 +940,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ),
                   child: const Icon(Icons.delete, color: Colors.red),
                 ),
-                title: const Text(
+                title: Text(
                   'Delete Link',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -865,24 +967,42 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Edit Link'),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          'Edit Link',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               controller: _titleController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Title',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
+                labelStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: _urlController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'URL',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 prefixText: 'https://',
+                labelStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
               ),
               keyboardType: TextInputType.url,
             ),
@@ -891,7 +1011,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(
+              'Cancel',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -944,6 +1069,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           opacity: _fadeAnimation,
           child: Card(
             elevation: 4,
+            color: Theme.of(context).colorScheme.surface,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
@@ -990,11 +1116,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         ),
                       ),
                     ),
-                    title: _buildHighlightedText(link.title, _currentSearchQuery),
+                    title: _buildHighlightedText(link.title, _currentSearchQuery, context),
                     subtitle: Text(
                       link.url,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 14),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                      ),
                     ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -1021,13 +1150,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           icon: Container(
                             padding: const EdgeInsets.all(6),
                             decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.1),
+                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Icon(
+                            child: Icon(
                               Icons.more_vert,
                               size: 22,
-                              color: Colors.grey,
+                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                             ),
                           ),
                           onPressed: () => _showLinkOptions(link),
@@ -1044,50 +1173,74 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-  // PERBAIKAN: Semua fungsi yang mengembalikan AppBar
+  // PERBAIKAN: AppBar untuk mode search dengan tema konsisten
   PreferredSizeWidget _buildSearchAppBar() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: isDark
+          ? Theme.of(context).colorScheme.surface
+          : Colors.white,
       elevation: 2,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
       ),
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Colors.blue),
+        icon: Icon(
+          Icons.arrow_back,
+          color: Theme.of(context).colorScheme.primary,
+        ),
         onPressed: _stopSearch,
       ),
       title: Container(
         height: 45,
         decoration: BoxDecoration(
-          color: Colors.grey.shade100,
+          color: isDark
+              ? Theme.of(context).colorScheme.surfaceVariant
+              : Colors.grey.shade100,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey.shade300, width: 1),
+          border: Border.all(
+            color: isDark
+                ? Theme.of(context).colorScheme.outline.withOpacity(0.3)
+                : Colors.grey.shade300,
+            width: 1,
+          ),
         ),
         child: Row(
           children: [
             const SizedBox(width: 12),
-            const Icon(Icons.search, color: Colors.grey, size: 22),
+            Icon(
+              Icons.search,
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+              size: 22,
+            ),
             const SizedBox(width: 8),
             Expanded(
               child: TextField(
                 controller: _searchController,
                 focusNode: _searchFocusNode,
                 autofocus: true,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Search links by title or URL...',
                   border: InputBorder.none,
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                  ),
                 ),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
-                  color: Colors.black87,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
-                cursorColor: Colors.blue,
+                cursorColor: Theme.of(context).colorScheme.primary,
               ),
             ),
             if (_searchController.text.isNotEmpty)
               IconButton(
-                icon: const Icon(Icons.clear, color: Colors.grey, size: 20),
+                icon: Icon(
+                  Icons.clear,
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                  size: 20,
+                ),
                 onPressed: () {
                   _searchController.clear();
                 },
@@ -1104,15 +1257,19 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.1),
+                  color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                    width: 1,
+                  ),
                 ),
                 child: Text(
                   '${_filteredLinks.length} found',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: Colors.blue,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ),
@@ -1134,10 +1291,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           icon: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Icon(Icons.search, size: 22),
+            child: Icon(
+              Icons.search,
+              size: 22,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
           onPressed: _startSearch,
           tooltip: 'Search',
@@ -1146,10 +1307,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           icon: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Icon(Icons.add, size: 22),
+            child: Icon(
+              Icons.add,
+              size: 22,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
           onPressed: _showAddLinkDialog,
           tooltip: 'Add New Link',
@@ -1158,10 +1323,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           icon: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Icon(Icons.refresh, size: 22),
+            child: Icon(
+              Icons.refresh,
+              size: 22,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
           onPressed: _refreshLinks,
           tooltip: 'Refresh',
@@ -1215,21 +1384,27 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.error_outline,
                     size: 64,
-                    color: Colors.red,
+                    color: Theme.of(context).colorScheme.error,
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Error loading links',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     snapshot.error.toString(),
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.grey),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                    ),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
@@ -1264,7 +1439,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     opacity: 1.0,
                     child: Text(
                       _isSearching ? 'No search results' : 'Welcome to Link4Fun',
-                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -1275,19 +1454,31 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           ? 'No links found for "$_currentSearchQuery"'
                           : 'Add your favorite links and access them with one tap',
                       textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 16, color: Colors.grey),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 32),
                   ElevatedButton.icon(
                     onPressed: _showAddLinkDialog,
-                    icon: const Icon(Icons.add),
-                    label: Text(_isSearching ? 'Add New Link' : 'Add Your First Link'),
+                    icon: Icon(
+                      Icons.add,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    label: Text(
+                      _isSearching ? 'Add New Link' : 'Add Your First Link',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],
@@ -1307,10 +1498,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       children: [
                         Text(
                           'Your Links (${linksToShow.length})',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            color: Colors.grey,
+                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
                           ),
                         ),
                       ],
