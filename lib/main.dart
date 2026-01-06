@@ -81,59 +81,10 @@ class LinkService {
     return [
       Link(
         id: '1',
-        title: 'Google Search',
+        title: 'Google',
         url: 'https://google.com',
         icon: '🌐',
         colorValue: getColorValue(66, 133, 244),
-      ),
-      Link(
-        id: '2',
-        title: 'YouTube Videos',
-        url: 'https://youtube.com',
-        icon: '📺',
-        colorValue: getColorValue(255, 0, 0),
-      ),
-      Link(
-        id: '3',
-        title: 'GitHub Repository',
-        url: 'https://github.com',
-        icon: '💻',
-        colorValue: getColorValue(36, 41, 46),
-      ),
-      Link(
-        id: '4',
-        title: 'Twitter Social',
-        url: 'https://twitter.com',
-        icon: '🐦',
-        colorValue: getColorValue(29, 161, 242),
-      ),
-      Link(
-        id: '5',
-        title: 'Instagram Photos',
-        url: 'https://instagram.com',
-        icon: '📸',
-        colorValue: getColorValue(225, 48, 108),
-      ),
-      Link(
-        id: '6',
-        title: 'Facebook Social Network',
-        url: 'https://facebook.com',
-        icon: '👥',
-        colorValue: getColorValue(24, 119, 242),
-      ),
-      Link(
-        id: '7',
-        title: 'LinkedIn Professional',
-        url: 'https://linkedin.com',
-        icon: '💼',
-        colorValue: getColorValue(10, 102, 194),
-      ),
-      Link(
-        id: '8',
-        title: 'Netflix Movies',
-        url: 'https://netflix.com',
-        icon: '🎬',
-        colorValue: getColorValue(229, 9, 20),
       ),
     ];
   }
