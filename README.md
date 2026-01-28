@@ -13,7 +13,7 @@
 
 </div>
 
-## ✨ **v1.0.0**
+##  **v1.0.0**
 
 ### 🔍 **Smart Search with Highlighting**
 - Real-time search with text highlighting
@@ -21,36 +21,36 @@
 - Search results counter with beautiful badge
 - Clean search UI with clear textbox design
 
-### 📱 **QR Code Generator**
+###  **QR Code Generator**
 - Generate QR codes for any link instantly
 - Customizable QR code colors matching link theme
 - Copy QR code URL with one tap
 - Share QR codes easily
 
-### 🎨 **Enhanced UI/UX**
+###  **Enhanced UI/UX**
 - Smooth animations and transitions
 - Staggered card animations
 - Modern Material Design 3 interface
 - Improved dark/light theme support
 - Gradient backgrounds and better shadows
 
-### ⚡ **Performance Improvements**
+###  **Performance Improvements**
 - Optimized state management
 - Better error handling
 - Persistent search state
 - Improved data synchronization
 
-## 📋 **Complete Feature List**
+##  **Complete Feature List**
 
 | Category | Features |
 |----------|----------|
-| **Link Management** | ✅ Add, Edit, Delete links<br>✅ One-tap URL opening<br>✅ Copy URL to clipboard<br>✅ Persistent local storage |
-| **Search & Organization** | ✅ Real-time search with highlighting<br>✅ Filter by title or URL<br>✅ Search results counter<br>✅ Clean search interface |
-| **QR Code Features** | ✅ Generate QR codes for any link<br>✅ Customizable QR colors<br>✅ Copy QR code URL<br>✅ Share functionality |
-| **UI/UX** | ✅ Smooth animations<br>✅ Dark/Light themes<br>✅ Gradient backgrounds<br>✅ Responsive design<br>✅ Confirmation dialogs |
-| **Technical** | ✅ Flutter 3.19.0+<br>✅ Material Design 3<br>✅ SharedPreferences storage<br>✅ URL launching<br>✅ Clipboard support |
+| **Link Management** |  Add, Edit, Delete links<br> One-tap URL opening<br> Copy URL to clipboard<br> Persistent local storage |
+| **Search & Organization** |  Real-time search with highlighting<br> Filter by title or URL<br> Search results counter<br Clean search interface |
+| **QR Code Features** |  Generate QR codes for any link<br> Customizable QR colors<br> Copy QR code URL<br> Share functionality |
+| **UI/UX** |  Smooth animations<br> Dark/Light themes<br> Gradient backgrounds<br> Responsive design<br> Confirmation dialogs |
+| **Technical** |  Flutter 3.19.0+<br> Material Design 3<br> SharedPreferences storage<br> URL launching<br> Clipboard support |
 
-## 🚀 **Quick Start**
+##  **Quick Start**
 
 ### **Prerequisites**
 - Flutter SDK 3.19.0 or higher
@@ -82,7 +82,7 @@
    flutter run --release
    ```
 
-## 🏗️ **Project Architecture**
+##  **Project Architecture**
 
 ```
 lib/
@@ -119,7 +119,7 @@ lib/
     ✓ Focus management
 ```
 
-## 🎯 **Usage Guide**
+##  **Usage Guide**
 
 ### **Adding Links**
 1. Tap the **+** icon in the AppBar
@@ -181,7 +181,7 @@ theme: ThemeData(
 ),
 ```
 
-## 📦 **Dependencies**
+##  **Dependencies**
 
 | Package | Version | Purpose |
 |---------|---------|---------|
@@ -191,7 +191,7 @@ theme: ThemeData(
 | `path_provider` | ^2.0.0 | File system access |
 | `flutter` | SDK | Core framework |
 
-## 🚀 **Building for Release**
+##  **Building for Release**
 
 ### **Android APK**
 ```bash
@@ -216,7 +216,7 @@ flutter build appbundle --release
 adb install build/app/outputs/flutter-apk/app-release.apk
 ```
 
-## 🎨 **UI Components Details**
+##  **UI Components Details**
 
 ### **Search AppBar**
 - Clean white background with rounded bottom
@@ -268,14 +268,14 @@ List<Link> _filteredLinks = _allLinks.where((link) {
 
 | Platform | Status | Notes |
 |----------|--------|-------|
-| **Android** | ✅ Fully Supported | API 21+ (Android 5.0+) |
-| **iOS** | ⚠️ Limited Testing | Requires macOS for build |
-| **Web** | ⚠️ Experimental | URL launching limitations |
-| **Windows** | 🔄 Planned | Future release |
-| **macOS** | 🔄 Planned | Future release |
-| **Linux** | 🔄 Planned | Future release |
+| **Android** |  Fully Supported | API 21+ (Android 5.0+) |
+| **iOS** |  Limited Testing | Requires macOS for build |
+| **Web** |  Experimental | URL launching limitations |
+| **Windows** |  Planned | Future release |
+| **macOS** |  Planned | Future release |
+| **Linux** |  Planned | Future release |
 
-## 🐛 **Bug Fixes in v2.0.0**
+##  **Bug Fixes in v2.0.0**
 
 ### **Fixed Issues**
 1. **List disappearance** after closing dialogs/bottom sheets
@@ -293,7 +293,7 @@ List<Link> _filteredLinks = _allLinks.where((link) {
 - Smoother animations
 - Reduced unnecessary renders
 
-## 🔮 **Roadmap & Future Features**
+##  **Roadmap & Future Features**
 
 ### **v2.1.0 (Planned)**
 - [ ] **Categories/Tags** for links
@@ -316,7 +316,7 @@ List<Link> _filteredLinks = _allLinks.where((link) {
 - [ ] **Themes marketplace**
 - [ ] **Team collaboration**
 
-## 🧪 **Testing**
+##  **Testing**
 
 ### **Manual Test Cases**
 1. Add new link with valid URL
@@ -340,7 +340,7 @@ flutter test integration_test/
 flutter test test/widget_test.dart
 ```
 
-## 🤝 **Contributing**
+##  **Contributing**
 
 We welcome contributions! Here's how to help:
 
@@ -384,12 +384,12 @@ git push origin feature/your-feature
 ## 📝 **Code Quality**
 
 ### **Best Practices Followed**
-- ✅ Null safety (Dart 3.0)
-- ✅ Material Design 3 guidelines
-- ✅ Responsive design principles
-- ✅ State management patterns
-- ✅ Error handling throughout
-- ✅ Performance optimization
+-  Null safety (Dart 3.0)
+-  Material Design 3 guidelines
+-  Responsive design principles
+-  State management patterns
+-  Error handling throughout
+-  Performance optimization
 
 ### **Code Style**
 - Consistent naming conventions
@@ -398,17 +398,17 @@ git push origin feature/your-feature
 - Separation of concerns
 - Reusable components
 
-## 📄 **License**
+##  **License**
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 **Author**
+##  **Author**
 
 **Richky Sung**
 - GitHub: [@richky0](https://github.com/richky0)
 - Email: richky61@gmail.com
 
-## 🙏 **Acknowledgments**
+##  **Acknowledgments**
 
 - **Flutter Team** for the incredible framework
 - **Material Design Team** for the design system
@@ -416,7 +416,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **All contributors** and testers
 - **Open source community** for inspiration
 
-## ⭐ **Support & Feedback**
+##  **Support & Feedback**
 
 If you find this project useful, please:
 
